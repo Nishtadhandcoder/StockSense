@@ -13,7 +13,7 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
   const { locations, products, quants, createOperation, updateOperationStatus, showToast } = useStock();
 
   const internalLocations = locations.filter((l) => l.isInternal);
-  const customerLocation = locations.find((l) => !l.isInternal && l.id === 'loc-customer') || locations[1];
+  const customerLocation = locations.find((l) => !l.isInternal) || null;
 
   const [sourceLocationId, setSourceLocationId] = useState<string>(
     internalLocations[0]?.id || ''
@@ -22,10 +22,10 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
     new Date().toISOString().split('T')[0]
   );
   const [notes, setNotes] = useState<string>('Outbound client dispatch via FedEx Freight');
-
   const [items, setItems] = useState<Array<{ productId: string; qty: number }>>([
     { productId: products[0]?.id || '', qty: 5 },
   ]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -60,9 +60,7 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
     return item.qty > available;
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
+  const handleSubmit = async (autoValidate: boolean = false) => {
     if (!sourceLocationId) {
       showToast('Please select a source storage location.', 'error');
       return;
@@ -93,12 +91,11 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
 
       onClose();
     } catch {
-      // error shown via showToast
+      // error shown via showToast inside createOperation
     } finally {
       setIsSubmitting(false);
     }
-  }, [sourceLocationId, items, hasInsufficientStock, scheduledDate, notes, customerLocation,
-      createOperation, updateOperationStatus, showToast, onClose]);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md animate-fade-in">
@@ -250,7 +247,7 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
           {/* Notes */}
           <div>
             <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-              Customer Shipping Instructions & Tracking ID
+              Customer Shipping Instructions &amp; Tracking ID
             </label>
             <input
               type="text"

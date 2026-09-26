@@ -31,6 +31,7 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
     }
     return [{ productId: products[0]?.id || '', qty: 10 }];
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -53,8 +54,6 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
       return copy;
     });
   };
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
     if (!destLocationId) {

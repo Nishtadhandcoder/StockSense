@@ -25,9 +25,10 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
   );
   const [notes, setNotes] = useState<string>('Inter-bay stock rebalancing transfer');
 
-  const [items, setItems] = useState<Array<{ productId: string; qty: number }>>([
-    { productId: products[0]?.id || '', qty: 5 },
-  ]);
+  const [items, setItems] = useState<Array<{ productId: string; qty: number }>>(
+    [{ productId: products[0]?.id || '', qty: 5 }]
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -62,8 +63,6 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
     const available = getAvailableStock(item.productId, sourceLocationId);
     return item.qty > available;
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
     if (isSameLocation) {
