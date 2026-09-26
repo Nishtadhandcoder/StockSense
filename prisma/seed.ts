@@ -164,13 +164,13 @@ async function main() {
             updatedAt: createdAt,
           })),
         },
-      },
+      } as any,
       include: { moves: true },
-    });
+    }) as any;
 
     // Write ledger entries for each move
     await Promise.all(
-      op.moves.map((move) =>
+      ((op.moves || []) as Array<{ productId: string; qty: number }>).map((move) =>
         prisma.stockLedger.create({
           data: {
             productId:        move.productId,
