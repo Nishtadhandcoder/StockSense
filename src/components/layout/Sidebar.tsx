@@ -225,7 +225,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
             </div>
           </div>
 
-          {/* Section: Backend Modules */}
+          {/* Section: System Modules (Person 3 - Server Routes) */}
           <div>
             <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
               System Modules
