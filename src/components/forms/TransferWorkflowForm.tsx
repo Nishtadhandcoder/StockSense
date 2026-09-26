@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useStock } from '@/lib/stockContext';
 import { IconCross, IconPlus, IconTransfer, IconCheck, IconAlertTriangle } from '@/components/ui/Icons';
 
@@ -64,7 +64,7 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
     return item.qty > available;
   });
 
-  const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
+  const handleSubmit = async (autoValidate: boolean = false) => {
     if (isSameLocation) {
       showToast('Source and Destination locations must be different.', 'error');
       return;
@@ -99,8 +99,7 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
     } finally {
       setIsSubmitting(false);
     }
-  }, [isSameLocation, items, hasInsufficientStock, sourceLocationId, destLocationId,
-      scheduledDate, notes, createOperation, updateOperationStatus, showToast, onClose]);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md animate-fade-in">

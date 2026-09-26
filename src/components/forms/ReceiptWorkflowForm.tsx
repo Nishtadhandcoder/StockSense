@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useStock } from '@/lib/stockContext';
 import { Product } from '@/lib/types';
 import { IconCross, IconPlus, IconReceipt, IconCheck } from '@/components/ui/Icons';
@@ -55,7 +55,7 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
     });
   };
 
-  const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
+  const handleSubmit = async (autoValidate: boolean = false) => {
     if (!destLocationId) {
       showToast('Please select a destination storage location.', 'error');
       return;
@@ -86,7 +86,7 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
     } finally {
       setIsSubmitting(false);
     }
-  }, [destLocationId, items, scheduledDate, notes, vendorLocation, createOperation, updateOperationStatus, showToast, onClose]);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md animate-fade-in">
