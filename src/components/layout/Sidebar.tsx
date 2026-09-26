@@ -98,32 +98,32 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
   ];
 
   return (
-    <aside className="flex h-screen w-64 flex-col justify-between border-r border-white/[0.08] bg-[#0c0c0e] p-4 text-zinc-300">
+    <aside className="flex h-screen w-64 flex-col justify-between border-r border-white/[0.06] bg-[#0c0c0e] px-4 py-5 text-zinc-300 select-none">
       <div className="flex flex-col gap-6">
-        {/* Logo / Brand Header */}
+        {/* Brand Header */}
         <div className="flex items-center justify-between px-2 pt-1">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 shadow-md shadow-blue-500/20">
-              <IconSparkles size={18} className="text-white" />
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600/90 text-white shadow-md shadow-blue-600/20">
+              <IconSparkles size={16} />
             </div>
             <div>
-              <span className="font-bold text-base tracking-tight text-white flex items-center gap-1.5">
+              <span className="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
                 StockSense
-                <span className="rounded bg-blue-500/20 px-1 py-0.2 text-[9px] font-semibold text-blue-400 uppercase tracking-widest border border-blue-500/30">
+                <span className="rounded bg-white/[0.08] px-1.5 py-0.5 text-[9px] font-semibold text-zinc-400 uppercase tracking-wider">
                   OPS
                 </span>
               </span>
-              <p className="text-[10px] text-zinc-500 leading-tight">Next-Gen Warehouse OS</p>
+              <p className="text-[10px] text-zinc-500 leading-none mt-0.5">Warehouse System</p>
             </div>
           </div>
         </div>
 
         {/* Navigation Sections */}
-        <nav className="flex flex-col gap-5 overflow-y-auto pr-1">
+        <nav className="flex flex-col gap-6 overflow-y-auto pr-1">
           {/* Section: Overview */}
           <div>
-            <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-              Executive View
+            <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              Overview
             </div>
             <div className="flex flex-col gap-1">
               {mainNavItems.map((item) => {
@@ -133,9 +133,9 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                   <button
                     key={item.id}
                     onClick={() => onSelectTab(item.id)}
-                    className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-xs font-medium transition-all ${
+                    className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-semibold'
+                        ? 'bg-blue-600/90 text-white font-semibold shadow-sm'
                         : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200'
                     }`}
                   >
@@ -151,7 +151,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
 
           {/* Section: Operations */}
           <div>
-            <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+            <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
               Operations Engine
             </div>
             <div className="flex flex-col gap-1">
@@ -162,9 +162,9 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                   <button
                     key={item.id}
                     onClick={() => onSelectTab(item.id)}
-                    className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-xs font-medium transition-all ${
+                    className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-semibold'
+                        ? 'bg-blue-600/90 text-white font-semibold shadow-sm'
                         : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200'
                     }`}
                   >
@@ -175,7 +175,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                     {item.badge && (
                       <span
                         className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
-                          isActive ? 'bg-white/20 text-white' : item.badgeColor || 'bg-zinc-800 text-zinc-300'
+                          isActive ? 'bg-white/20 text-white' : item.badgeColor || 'bg-zinc-800 text-zinc-400'
                         }`}
                       >
                         {item.badge}
@@ -187,10 +187,10 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
             </div>
           </div>
 
-          {/* Section: Inventory & Audit */}
+          {/* Section: Inventory & Traceability */}
           <div>
-            <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-              Stock & Traceability
+            <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              Inventory & Audit
             </div>
             <div className="flex flex-col gap-1">
               {inventoryNavItems.map((item) => {
@@ -200,9 +200,9 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                   <button
                     key={item.id}
                     onClick={() => onSelectTab(item.id)}
-                    className={`flex items-center justify-between rounded-lg px-2.5 py-2 text-xs font-medium transition-all ${
+                    className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 font-semibold'
+                        ? 'bg-blue-600/90 text-white font-semibold shadow-sm'
                         : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200'
                     }`}
                   >
@@ -213,7 +213,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                     {item.badge && (
                       <span
                         className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
-                          isActive ? 'bg-white/20 text-white' : item.badgeColor || 'bg-zinc-800 text-zinc-300'
+                          isActive ? 'bg-white/20 text-white' : item.badgeColor || 'bg-zinc-800 text-zinc-400'
                         }`}
                       >
                         {item.badge}
@@ -225,56 +225,56 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
             </div>
           </div>
 
-          {/* Section: System Modules (Person 3 - Server Routes) */}
+          {/* Section: System Routes */}
           <div>
-            <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-              System Modules
+            <div className="px-2 pb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              System Views
             </div>
             <div className="flex flex-col gap-1">
               <Link
                 href="/products"
-                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
               >
-                <span>📦 Products DB</span>
-                <span className="text-[10px] text-zinc-600">/products</span>
+                <span>Products Directory</span>
+                <span className="text-[10px] text-zinc-500">/products</span>
               </Link>
               <Link
                 href="/history"
-                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
               >
-                <span>📜 Move History</span>
-                <span className="text-[10px] text-zinc-600">/history</span>
+                <span>Stock Move Log</span>
+                <span className="text-[10px] text-zinc-500">/history</span>
               </Link>
               <Link
                 href="/settings"
-                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
               >
-                <span>🏢 Locations Config</span>
-                <span className="text-[10px] text-zinc-600">/settings</span>
+                <span>Warehouse Hubs</span>
+                <span className="text-[10px] text-zinc-500">/settings</span>
               </Link>
               <Link
                 href="/login"
-                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
               >
-                <span>🔐 Auth Portal</span>
-                <span className="text-[10px] text-zinc-600">/login</span>
+                <span>Auth Portal</span>
+                <span className="text-[10px] text-zinc-500">/login</span>
               </Link>
             </div>
           </div>
         </nav>
       </div>
 
-      {/* Bottom Live Facility Status Widget */}
+      {/* Facility Status Card */}
       <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
         <div className="flex items-center justify-between">
-          <span className="text-[11px] font-medium text-zinc-400">Facility Scope</span>
+          <span className="text-[11px] font-medium text-zinc-400">Scope</span>
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-[10px] font-medium text-emerald-400">Live</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span className="text-[10px] font-medium text-emerald-400">Active</span>
           </div>
         </div>
         <div className="mt-1 text-xs font-semibold text-zinc-200 truncate">
-          {selectedWh ? `${selectedWh.name} (${selectedWh.code})` : 'All Warehouse Facilities'}
+          {selectedWh ? `${selectedWh.name}` : 'All Warehouse Hubs'}
         </div>
         <div className="mt-2 flex items-center justify-between text-[10px] text-zinc-500">
           <span>Capacity: {kpis.warehouseCapacityUtilization}%</span>
@@ -282,7 +282,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
         </div>
         <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-zinc-800">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-500"
+            className="h-full rounded-full bg-blue-500 transition-all duration-500"
             style={{ width: `${kpis.warehouseCapacityUtilization}%` }}
           />
         </div>
