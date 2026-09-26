@@ -20,7 +20,7 @@ import {
   IconReceipt,
   IconDelivery,
   IconTransfer,
-  IconChevronRight,
+  IconChevronDown,
   IconSparkles,
 } from '@/components/ui/Icons';
 
@@ -125,7 +125,7 @@ export function AppShell() {
                     className="flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors"
                   >
                     <span>View All Operations</span>
-                    <IconChevronRight size={14} />
+                    <span className="text-sm leading-none">›</span>
                   </button>
                 </div>
                 <OperationsTable
