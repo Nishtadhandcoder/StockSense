@@ -1,69 +1,60 @@
-import Image from "next/image";
+import Link from "next/link";
+import LowStockWidget from "@/components/dashboard/LowStockWidget";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="container" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <h1 style={{ fontSize: '3.5rem', fontWeight: 800, background: 'linear-gradient(to right, var(--accent-primary), #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          StockSense
+        </h1>
+        <p style={{ fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto', color: 'var(--text-secondary)' }}>
+          The centralized, real-time inventory management system replacing your scattered registers and spreadsheets.
+        </p>
+      </div>
+
+      <div className="grid-cols-3">
+        {/* Main Navigation Cards */}
+        <div className="glass-card animate-fade-in" style={{ gridColumn: 'span 2' }}>
+          <h2>Core Modules</h2>
+          <p>Access your inventory management workflows.</p>
+          
+          <div className="grid-cols-2" style={{ marginTop: '2rem' }}>
+            <Link href="/products" style={{ textDecoration: 'none' }}>
+              <div className="glass-card" style={{ cursor: 'pointer', backgroundColor: 'rgba(59, 130, 246, 0.05)' }}>
+                <h3 style={{ color: 'var(--accent-primary)' }}>📦 Products Catalog</h3>
+                <p style={{ margin: 0, fontSize: '0.875rem' }}>Manage SKUs, categories, and master reorder levels.</p>
+              </div>
+            </Link>
+            
+            <Link href="/history" style={{ textDecoration: 'none' }}>
+              <div className="glass-card" style={{ cursor: 'pointer', backgroundColor: 'rgba(245, 158, 11, 0.05)' }}>
+                <h3 style={{ color: 'var(--accent-warning)' }}>📜 Move History</h3>
+                <p style={{ margin: 0, fontSize: '0.875rem' }}>View the immutable stock ledger and audit trail.</p>
+              </div>
+            </Link>
+
+            <Link href="/settings" style={{ textDecoration: 'none' }}>
+              <div className="glass-card" style={{ cursor: 'pointer', backgroundColor: 'rgba(16, 185, 129, 0.05)' }}>
+                <h3 style={{ color: 'var(--accent-success)' }}>🏢 Warehouses & Locations</h3>
+                <p style={{ margin: 0, fontSize: '0.875rem' }}>Configure tracking locations and system settings.</p>
+              </div>
+            </Link>
+
+            <Link href="/login" style={{ textDecoration: 'none' }}>
+              <div className="glass-card" style={{ cursor: 'pointer' }}>
+                <h3 style={{ color: 'var(--text-primary)' }}>🔐 Authentication</h3>
+                <p style={{ margin: 0, fontSize: '0.875rem' }}>Sign in with OTP or demo credentials.</p>
+              </div>
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Low Stock Widget embedded here so Person 2 can see how it looks */}
+        <div className="animate-fade-in" style={{ gridColumn: 'span 1', animationDelay: '0.1s' }}>
+          <LowStockWidget />
         </div>
-      </main>
+      </div>
     </div>
   );
 }
