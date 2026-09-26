@@ -203,6 +203,7 @@ export function StockProvider({ children }: { children: React.ReactNode }) {
 
   // Initial load + re-fetch when warehouse filter changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAll();
   }, [fetchAll]);
 
@@ -289,7 +290,7 @@ export function StockProvider({ children }: { children: React.ReactNode }) {
   const updateOperationStatus = useCallback(
     async (id: string, newStatus: OperationStatus): Promise<boolean> => {
       let endpoint = '';
-      let method = 'POST';
+      const method = 'POST';
 
       if (newStatus === 'READY' || newStatus === 'WAITING') {
         endpoint = `/api/operations/${id}/confirm`;

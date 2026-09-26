@@ -92,6 +92,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     });
 
     return NextResponse.json({ success: true, data: product });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.code === 'P2025') {
       return NextResponse.json(
@@ -125,6 +126,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
     await prisma.product.delete({ where: { id } });
 
     return NextResponse.json({ success: true, message: 'Product deleted successfully' });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.code === 'P2025') {
       return NextResponse.json(

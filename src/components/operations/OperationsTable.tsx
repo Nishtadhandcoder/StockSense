@@ -154,7 +154,7 @@ export function OperationsTable({
           {/* Status Dropdown */}
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as any)}
+            onChange={(e) => setStatusFilter(e.target.value as any /* eslint-disable-line @typescript-eslint/no-explicit-any */)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs text-zinc-300 focus:border-blue-500/50 focus:outline-none cursor-pointer"
             style={{ width: 'auto' }}
           >

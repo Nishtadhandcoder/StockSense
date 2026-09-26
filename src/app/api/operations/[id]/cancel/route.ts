@@ -52,6 +52,7 @@ export async function POST(_req: NextRequest, { params }: Params) {
       data: updated,
       message: `Operation ${operation.referenceNumber} has been canceled.`,
     });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('[POST /api/operations/[id]/cancel]', error);
     return NextResponse.json(

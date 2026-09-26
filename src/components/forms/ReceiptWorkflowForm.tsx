@@ -47,6 +47,7 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
     setItems((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleItemChange = (index: number, field: 'productId' | 'qty', value: any) => {
     setItems((prev) => {
       const copy = [...prev];

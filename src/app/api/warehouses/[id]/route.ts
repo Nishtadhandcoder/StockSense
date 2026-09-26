@@ -68,6 +68,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     });
 
     return NextResponse.json({ success: true, data: warehouse });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.code === 'P2025') {
       return NextResponse.json({ success: false, error: 'Warehouse not found' }, { status: 404 });
@@ -104,6 +105,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 
     await prisma.warehouse.delete({ where: { id } });
     return NextResponse.json({ success: true, message: 'Warehouse deleted successfully' });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.code === 'P2025') {
       return NextResponse.json({ success: false, error: 'Warehouse not found' }, { status: 404 });

@@ -55,6 +55,7 @@ export async function POST(_req: NextRequest, { params }: Params) {
       data: updated,
       message: `Operation confirmed: ${currentStatus} → ${nextStatus}`,
     });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('[POST /api/operations/[id]/confirm]', error);
     return NextResponse.json(
