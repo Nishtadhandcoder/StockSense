@@ -98,7 +98,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
   ];
 
   return (
-    <aside className="flex h-screen w-64 flex-col justify-between border-r border-white/[0.06] bg-[#0c0c0e] px-4 py-5 text-zinc-300 select-none">
+    <aside className="flex h-screen w-64 flex-col justify-between border-r border-white/6 bg-[#0c0c0e] px-4 py-5 text-zinc-300 select-none">
       <div className="flex flex-col gap-6">
         {/* Brand Header */}
         <div className="flex items-center justify-between px-2 pt-1">
@@ -109,7 +109,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
             <div>
               <span className="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
                 StockSense
-                <span className="rounded bg-white/[0.08] px-1.5 py-0.5 text-[9px] font-semibold text-zinc-400 uppercase tracking-wider">
+                <span className="rounded bg-white/8 px-1.5 py-0.5 text-[9px] font-semibold text-zinc-400 uppercase tracking-wider">
                   OPS
                 </span>
               </span>
@@ -136,7 +136,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                     className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                       isActive
                         ? 'bg-blue-600/90 text-white font-semibold shadow-sm'
-                        : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200'
+                        : 'text-zinc-400 hover:bg-white/4 hover:text-zinc-200'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -165,7 +165,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                     className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                       isActive
                         ? 'bg-blue-600/90 text-white font-semibold shadow-sm'
-                        : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200'
+                        : 'text-zinc-400 hover:bg-white/4 hover:text-zinc-200'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -203,7 +203,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                     className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium transition-all ${
                       isActive
                         ? 'bg-blue-600/90 text-white font-semibold shadow-sm'
-                        : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200'
+                        : 'text-zinc-400 hover:bg-white/4 hover:text-zinc-200'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -233,28 +233,28 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
             <div className="flex flex-col gap-1">
               <Link
                 href="/products"
-                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/4 hover:text-zinc-200 transition-colors"
               >
                 <span>Products Directory</span>
                 <span className="text-[10px] text-zinc-500">/products</span>
               </Link>
               <Link
                 href="/history"
-                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/4 hover:text-zinc-200 transition-colors"
               >
                 <span>Stock Move Log</span>
                 <span className="text-[10px] text-zinc-500">/history</span>
               </Link>
               <Link
                 href="/settings"
-                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/4 hover:text-zinc-200 transition-colors"
               >
                 <span>Warehouse Hubs</span>
                 <span className="text-[10px] text-zinc-500">/settings</span>
               </Link>
               <Link
                 href="/login"
-                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+                className="flex items-center justify-between rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:bg-white/4 hover:text-zinc-200 transition-colors"
               >
                 <span>Auth Portal</span>
                 <span className="text-[10px] text-zinc-500">/login</span>
@@ -265,7 +265,7 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
       </div>
 
       {/* Facility Status Card */}
-      <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3">
+      <div className="rounded-xl border border-white/6 bg-white/2 p-3">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-medium text-zinc-400">Scope</span>
           <div className="flex items-center gap-1.5">

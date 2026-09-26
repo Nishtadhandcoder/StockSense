@@ -63,7 +63,7 @@ export function AppShell() {
           {currentTab === 'dashboard' && (
             <div className="space-y-8 animate-fade-in max-w-7xl mx-auto">
               {/* Executive Welcome & Operations Trigger Bar */}
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/[0.06] pb-5">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-white/6 pb-5">
                 <div>
                   <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2.5">
                     Operations Intelligence
@@ -81,21 +81,21 @@ export function AppShell() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleOpenNewOperation('RECEIPT')}
-                    className="flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.03] hover:bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors"
+                    className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/3 hover:bg-white/8 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors"
                   >
                     <IconReceipt size={14} className="text-emerald-400" />
                     <span>+ Receipt</span>
                   </button>
                   <button
                     onClick={() => handleOpenNewOperation('DELIVERY')}
-                    className="flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.03] hover:bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors"
+                    className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/3 hover:bg-white/8 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors"
                   >
                     <IconDelivery size={14} className="text-blue-400" />
                     <span>+ Delivery</span>
                   </button>
                   <button
                     onClick={() => handleOpenNewOperation('INTERNAL')}
-                    className="flex items-center gap-1.5 rounded-lg border border-white/[0.1] bg-white/[0.03] hover:bg-white/[0.08] px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors"
+                    className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/3 hover:bg-white/8 px-3 py-1.5 text-xs font-medium text-zinc-200 transition-colors"
                   >
                     <IconTransfer size={14} className="text-purple-400" />
                     <span>+ Transfer</span>
