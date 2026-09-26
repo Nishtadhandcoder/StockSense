@@ -60,7 +60,7 @@ async function main() {
   ]);
 
   // HQ internal locations
-  const [hqMainStore, hqRackA, hqRackB, hqStaging, hqProduction] = await Promise.all([
+  const [hqMainStore, hqRackA, hqRackB] = await Promise.all([
     prisma.location.create({ data: { name: 'HQ / Main Store',      warehouseId: hqWarehouse.id, isInternal: true } }),
     prisma.location.create({ data: { name: 'HQ / Rack A — Electronics', warehouseId: hqWarehouse.id, isInternal: true } }),
     prisma.location.create({ data: { name: 'HQ / Rack B — Accessories', warehouseId: hqWarehouse.id, isInternal: true } }),
@@ -69,7 +69,7 @@ async function main() {
   ]);
 
   // Branch internal locations
-  const [branchStore, branchDock] = await Promise.all([
+  const [branchStore] = await Promise.all([
     prisma.location.create({ data: { name: 'NYH / Main Store',     warehouseId: branchWarehouse.id, isInternal: true } }),
     prisma.location.create({ data: { name: 'NYH / Receiving Dock', warehouseId: branchWarehouse.id, isInternal: true } }),
   ]);

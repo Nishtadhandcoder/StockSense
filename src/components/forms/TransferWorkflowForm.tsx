@@ -20,7 +20,7 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
   const [destLocationId, setDestLocationId] = useState<string>(
     internalLocations[1]?.id || ''
   );
-  const [scheduledDate, setScheduledDate] = useState<string>(
+  const [scheduledDate] = useState<string>(
     new Date().toISOString().split('T')[0]
   );
   const [notes, setNotes] = useState<string>('Inter-bay stock rebalancing transfer');

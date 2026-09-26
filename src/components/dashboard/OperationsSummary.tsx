@@ -33,8 +33,6 @@ export function OperationsSummary({ onFilterStatus }: OperationsSummaryProps) {
     CANCELED: operations.filter((o) => o.status === 'CANCELED').length,
   };
 
-  const totalOps = operations.length || 1;
-
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {/* Card 1: Facility Storage Allocation */}

@@ -7,11 +7,7 @@ import { StatusBadge, TypeBadge } from './StatusBadge';
 import {
   IconCross,
   IconCheck,
-  IconAlertTriangle,
   IconWarehouse,
-  IconReceipt,
-  IconDelivery,
-  IconTransfer,
 } from '@/components/ui/Icons';
 
 interface OperationDetailModalProps {

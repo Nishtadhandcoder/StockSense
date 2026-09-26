@@ -8,7 +8,6 @@ import {
   IconChevronDown,
   IconPlus,
   IconBell,
-  IconUser,
   IconReceipt,
   IconDelivery,
   IconTransfer,
@@ -36,8 +35,6 @@ export function TopHeader({ onOpenNewOperation, searchQuery, setSearchQuery }: T
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [showQuickMenu, setShowQuickMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-
-  const selectedWarehouse = warehouses.find((w) => w.id === selectedWarehouseId);
 
   const getRoleBadgeStyle = (role: Role) => {
     switch (role) {

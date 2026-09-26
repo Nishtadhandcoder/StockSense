@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useStock } from '@/lib/stockContext';
 import { Product } from '@/lib/types';
-import { IconSearch, IconAlertTriangle, IconPlus, IconBox } from '@/components/ui/Icons';
+import { IconSearch, IconPlus } from '@/components/ui/Icons';
 
 interface InventoryTableProps {
   onRestockProduct: (product: Product) => void;

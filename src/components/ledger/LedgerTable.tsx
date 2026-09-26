@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useStock } from '@/lib/stockContext';
-import { IconLedger, IconSearch } from '@/components/ui/Icons';
+import { IconSearch } from '@/components/ui/Icons';
 
 export function LedgerTable() {
   const { ledger, products, locations, operations } = useStock();

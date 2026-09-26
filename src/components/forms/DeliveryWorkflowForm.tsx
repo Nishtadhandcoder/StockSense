@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useStock } from '@/lib/stockContext';
 import { IconCross, IconPlus, IconDelivery, IconCheck, IconAlertTriangle } from '@/components/ui/Icons';
 

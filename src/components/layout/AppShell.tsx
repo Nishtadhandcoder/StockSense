@@ -15,13 +15,11 @@ import { TransferWorkflowForm } from '@/components/forms/TransferWorkflowForm';
 import { InventoryTable } from '@/components/inventory/InventoryTable';
 import { LocationsView } from '@/components/locations/LocationsView';
 import { LedgerTable } from '@/components/ledger/LedgerTable';
-import { StockOperation, OperationType, Product, OperationStatus } from '@/lib/types';
+import { StockOperation, OperationType, Product } from '@/lib/types';
 import {
   IconReceipt,
   IconDelivery,
   IconTransfer,
-  IconChevronDown,
-  IconSparkles,
 } from '@/components/ui/Icons';
 
 export function AppShell() {
@@ -111,7 +109,7 @@ export function AppShell() {
 
               {/* Facility Allocation & Pipeline Health */}
               <OperationsSummary
-                onFilterStatus={(status) => {
+                onFilterStatus={() => {
                   setCurrentTab('operations');
                 }}
               />

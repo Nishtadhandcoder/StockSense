@@ -6,13 +6,10 @@ import { StockOperation, OperationType, OperationStatus } from '@/lib/types';
 import { StatusBadge, TypeBadge } from './StatusBadge';
 import {
   IconSearch,
-  IconFilter,
   IconReceipt,
   IconDelivery,
   IconTransfer,
   IconCheck,
-  IconChevronRight,
-  IconPlus,
 } from '@/components/ui/Icons';
 
 interface OperationsTableProps {
@@ -30,21 +27,20 @@ export function OperationsTable({
   title = 'Inventory Operations Log',
   subtitle = 'Manage receipts, delivery dispatches, and warehouse location transfers',
 }: OperationsTableProps) {
-  const { operations, updateOperationStatus, selectedWarehouseId, warehouses, locations } = useStock();
+  const { operations, updateOperationStatus, selectedWarehouseId, locations } = useStock();
 
   const [typeFilter, setTypeFilter] = useState<'ALL' | OperationType>(initialTypeFilter);
   const [statusFilter, setStatusFilter] = useState<'ALL' | OperationStatus>('ALL');
   const [localSearch, setLocalSearch] = useState('');
 
-  // Helper to resolve warehouse for a location
-  const getLocationWarehouse = (locId?: string | null) => {
-    if (!locId) return null;
-    const loc = locations.find((l) => l.id === locId);
-    return loc?.warehouseId || null;
-  };
-
   // Filtered operations
   const filteredOperations = useMemo(() => {
+    const getLocationWarehouse = (locId?: string | null) => {
+      if (!locId) return null;
+      const loc = locations.find((l) => l.id === locId);
+      return loc?.warehouseId || null;
+    };
+
     return operations.filter((op) => {
       // 1. Type filter
       if (typeFilter !== 'ALL' && op.type !== typeFilter) return false;

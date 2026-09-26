@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useStock } from '@/lib/stockContext';
-import { IconWarehouse, IconBox } from '@/components/ui/Icons';
+import { IconWarehouse } from '@/components/ui/Icons';
 
 export function LocationsView() {
   const { warehouses, locations, quants, products } = useStock();
