@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import {
   IconDashboard,
   IconOperations,
@@ -221,6 +222,40 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                   </button>
                 );
               })}
+          {/* Section: Backend Modules */}
+          <div>
+            <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+              System Modules
+            </div>
+            <div className="flex flex-col gap-1">
+              <Link
+                href="/products"
+                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+              >
+                <span>📦 Products DB</span>
+                <span className="text-[10px] text-zinc-600">/products</span>
+              </Link>
+              <Link
+                href="/history"
+                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+              >
+                <span>📜 Move History</span>
+                <span className="text-[10px] text-zinc-600">/history</span>
+              </Link>
+              <Link
+                href="/settings"
+                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+              >
+                <span>🏢 Locations Config</span>
+                <span className="text-[10px] text-zinc-600">/settings</span>
+              </Link>
+              <Link
+                href="/login"
+                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200 transition-colors"
+              >
+                <span>🔐 Auth Portal</span>
+                <span className="text-[10px] text-zinc-600">/login</span>
+              </Link>
             </div>
           </div>
         </nav>
