@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useStock } from '@/lib/stockContext';
 import { IconCross, IconPlus, IconDelivery, IconCheck, IconAlertTriangle } from '@/components/ui/Icons';
 
@@ -60,7 +60,9 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
     return item.qty > available;
   });
 
-  const handleSubmit = (autoValidate: boolean = false) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
     if (!sourceLocationId) {
       showToast('Please select a source storage location.', 'error');
       return;
@@ -74,21 +76,29 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
       return;
     }
 
-    const newOp = createOperation({
-      type: 'DELIVERY',
-      sourceLocationId,
-      destLocationId: customerLocation?.id || 'loc-customer',
-      scheduledDate,
-      notes,
-      moves: items,
-    });
+    setIsSubmitting(true);
+    try {
+      const newOp = await createOperation({
+        type: 'DELIVERY',
+        sourceLocationId,
+        destLocationId: customerLocation?.id || null,
+        scheduledDate,
+        notes,
+        moves: items,
+      });
 
-    if (autoValidate) {
-      updateOperationStatus(newOp.id, 'DONE');
+      if (autoValidate) {
+        await updateOperationStatus(newOp.id, 'DONE');
+      }
+
+      onClose();
+    } catch {
+      // error shown via showToast
+    } finally {
+      setIsSubmitting(false);
     }
-
-    onClose();
-  };
+  }, [sourceLocationId, items, hasInsufficientStock, scheduledDate, notes, customerLocation,
+      createOperation, updateOperationStatus, showToast, onClose]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md animate-fade-in">
@@ -265,23 +275,24 @@ export function DeliveryWorkflowForm({ isOpen, onClose }: DeliveryWorkflowFormPr
           <div className="flex items-center gap-2">
             <button
               type="button"
+              disabled={isSubmitting}
               onClick={() => handleSubmit(false)}
-              className="rounded-lg border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.08]"
+              className="rounded-lg border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.08] disabled:opacity-50"
             >
-              Save as Draft
+              {isSubmitting ? 'Saving…' : 'Save as Draft'}
             </button>
             <button
               type="button"
-              disabled={hasInsufficientStock}
+              disabled={hasInsufficientStock || isSubmitting}
               onClick={() => handleSubmit(true)}
               className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold text-white shadow-lg transition-all ${
-                hasInsufficientStock
+                hasInsufficientStock || isSubmitting
                   ? 'bg-zinc-700 opacity-50 cursor-not-allowed'
                   : 'bg-blue-600 shadow-blue-600/25 hover:bg-blue-500'
               }`}
             >
               <IconCheck size={14} />
-              <span>Validate & Dispatch Now</span>
+              <span>{isSubmitting ? 'Processing…' : 'Validate & Dispatch Now'}</span>
             </button>
           </div>
         </div>

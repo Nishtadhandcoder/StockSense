@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useStock } from '@/lib/stockContext';
 import { Product } from '@/lib/types';
 import { IconCross, IconPlus, IconReceipt, IconCheck } from '@/components/ui/Icons';
@@ -54,7 +54,9 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
     });
   };
 
-  const handleSubmit = (autoValidate: boolean = false) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = useCallback(async (autoValidate: boolean = false) => {
     if (!destLocationId) {
       showToast('Please select a destination storage location.', 'error');
       return;
@@ -64,21 +66,28 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
       return;
     }
 
-    const newOp = createOperation({
-      type: 'RECEIPT',
-      sourceLocationId: vendorLocation?.id || 'loc-vendor',
-      destLocationId,
-      scheduledDate,
-      notes,
-      moves: items,
-    });
+    setIsSubmitting(true);
+    try {
+      const newOp = await createOperation({
+        type: 'RECEIPT',
+        sourceLocationId: vendorLocation?.id || null,
+        destLocationId,
+        scheduledDate,
+        notes,
+        moves: items,
+      });
 
-    if (autoValidate) {
-      updateOperationStatus(newOp.id, 'DONE');
+      if (autoValidate) {
+        await updateOperationStatus(newOp.id, 'DONE');
+      }
+
+      onClose();
+    } catch {
+      // error already shown via showToast inside createOperation
+    } finally {
+      setIsSubmitting(false);
     }
-
-    onClose();
-  };
+  }, [destLocationId, items, scheduledDate, notes, vendorLocation, createOperation, updateOperationStatus, showToast, onClose]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md animate-fade-in">
@@ -226,18 +235,20 @@ export function ReceiptWorkflowForm({ isOpen, onClose, preselectedProduct }: Rec
           <div className="flex items-center gap-2">
             <button
               type="button"
+              disabled={isSubmitting}
               onClick={() => handleSubmit(false)}
-              className="rounded-lg border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.08]"
+              className="rounded-lg border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.08] disabled:opacity-50"
             >
-              Save as Draft
+              {isSubmitting ? 'Saving…' : 'Save as Draft'}
             </button>
             <button
               type="button"
+              disabled={isSubmitting}
               onClick={() => handleSubmit(true)}
-              className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-emerald-600/25 hover:bg-emerald-500"
+              className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-emerald-600/25 hover:bg-emerald-500 disabled:opacity-50"
             >
               <IconCheck size={14} />
-              <span>Validate & Intake Now</span>
+              <span>{isSubmitting ? 'Processing…' : 'Validate & Intake Now'}</span>
             </button>
           </div>
         </div>
