@@ -1,6 +1,20 @@
 # 🎬 StockSense — Demo Presentation & Script Guide
 
-Welcome to the **StockSense Hackathon Presentation Guide**. This document outlines the core functional flow, architecture highlights, and a 90-second script for project video submissions or live judge presentations.
+Welcome to the **StockSense Hackathon Presentation Guide**. This document outlines the core functional flow, architecture highlights, recorded UI video walkthrough, and a 90-second script for project video submissions or live judge presentations.
+
+---
+
+## 📽️ Recorded UI & Functional Walkthrough Video
+
+Below is the live interaction walkthrough animation showing the clean UI, smooth navigation, KPI panels, and operations telemetry:
+
+![StockSense UI Walkthrough Recording](./public/demo_walkthrough.webp)
+
+---
+
+## 📸 Core UI Screenshot
+
+![StockSense Dashboard View](./public/demo_screenshot.png)
 
 ---
 
