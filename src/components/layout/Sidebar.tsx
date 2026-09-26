@@ -222,6 +222,9 @@ export function Sidebar({ currentTab, onSelectTab }: SidebarProps) {
                   </button>
                 );
               })}
+            </div>
+          </div>
+
           {/* Section: Backend Modules */}
           <div>
             <div className="px-2 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
