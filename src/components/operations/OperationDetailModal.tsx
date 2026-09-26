@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { StockOperation, OperationStatus } from '@/lib/types';
 import { useStock } from '@/lib/stockContext';
 import { StatusBadge, TypeBadge } from './StatusBadge';
@@ -21,6 +21,17 @@ interface OperationDetailModalProps {
 
 export function OperationDetailModal({ operation, onClose }: OperationDetailModalProps) {
   const { updateOperationStatus, locations, products, quants } = useStock();
+  const [isActing, setIsActing] = useState(false);
+
+  const handleStatusChange = async (newStatus: OperationStatus) => {
+    setIsActing(true);
+    try {
+      const ok = await updateOperationStatus(operation!.id, newStatus);
+      if (ok) onClose();
+    } finally {
+      setIsActing(false);
+    }
+  };
 
   if (!operation) return null;
 
@@ -203,13 +214,11 @@ export function OperationDetailModal({ operation, onClose }: OperationDetailModa
           <div>
             {operation.status !== 'DONE' && operation.status !== 'CANCELED' && (
               <button
-                onClick={() => {
-                  updateOperationStatus(operation.id, 'CANCELED');
-                  onClose();
-                }}
-                className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-medium text-rose-400 hover:bg-rose-500/20 transition-colors"
+                disabled={isActing}
+                onClick={() => handleStatusChange('CANCELED')}
+                className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-medium text-rose-400 hover:bg-rose-500/20 transition-colors disabled:opacity-50"
               >
-                Cancel Operation
+                {isActing ? 'Processing…' : 'Cancel Operation'}
               </button>
             )}
           </div>
@@ -224,26 +233,22 @@ export function OperationDetailModal({ operation, onClose }: OperationDetailModa
 
             {operation.status === 'DRAFT' && (
               <button
-                onClick={() => {
-                  updateOperationStatus(operation.id, 'READY');
-                  onClose();
-                }}
-                className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-500 transition-colors"
+                disabled={isActing}
+                onClick={() => handleStatusChange('READY')}
+                className="rounded-lg bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-500 transition-colors disabled:opacity-50"
               >
-                Mark as Ready
+                {isActing ? 'Processing…' : 'Mark as Ready'}
               </button>
             )}
 
             {(operation.status === 'READY' || operation.status === 'WAITING') && (
               <button
-                onClick={() => {
-                  const success = updateOperationStatus(operation.id, 'DONE');
-                  if (success) onClose();
-                }}
-                className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-emerald-600/25 hover:bg-emerald-500 transition-colors"
+                disabled={isActing}
+                onClick={() => handleStatusChange('DONE')}
+                className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-emerald-600/25 hover:bg-emerald-500 transition-colors disabled:opacity-50"
               >
                 <IconCheck size={14} />
-                <span>Validate & Complete</span>
+                <span>{isActing ? 'Validating…' : 'Validate & Complete'}</span>
               </button>
             )}
 

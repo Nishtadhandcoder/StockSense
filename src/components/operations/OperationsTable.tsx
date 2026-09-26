@@ -154,7 +154,7 @@ export function OperationsTable({
           {/* Status Dropdown */}
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as any)}
+            onChange={(e) => setStatusFilter(e.target.value as any /* eslint-disable-line @typescript-eslint/no-explicit-any */)}
             className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs text-zinc-300 focus:border-blue-500/50 focus:outline-none cursor-pointer"
             style={{ width: 'auto' }}
           >
@@ -260,7 +260,7 @@ export function OperationsTable({
                       >
                         {op.status === 'DRAFT' && (
                           <button
-                            onClick={() => updateOperationStatus(op.id, 'READY')}
+                            onClick={async () => { await updateOperationStatus(op.id, 'READY'); }}
                             className="rounded bg-blue-600/20 hover:bg-blue-600/40 text-blue-300 border border-blue-500/30 px-2.5 py-1 text-[11px] font-medium transition-colors"
                           >
                             Mark Ready
@@ -268,7 +268,7 @@ export function OperationsTable({
                         )}
                         {op.status === 'READY' && (
                           <button
-                            onClick={() => updateOperationStatus(op.id, 'DONE')}
+                            onClick={async () => { await updateOperationStatus(op.id, 'DONE'); }}
                             className="rounded bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 text-[11px] font-medium transition-colors"
                           >
                             Validate
@@ -276,7 +276,7 @@ export function OperationsTable({
                         )}
                         {op.status === 'WAITING' && (
                           <button
-                            onClick={() => updateOperationStatus(op.id, 'READY')}
+                            onClick={async () => { await updateOperationStatus(op.id, 'READY'); }}
                             className="rounded bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 border border-amber-500/30 px-2.5 py-1 text-[11px] font-medium transition-colors"
                           >
                             Check Stock

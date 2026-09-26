@@ -25,9 +25,10 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
   );
   const [notes, setNotes] = useState<string>('Inter-bay stock rebalancing transfer');
 
-  const [items, setItems] = useState<Array<{ productId: string; qty: number }>>([
-    { productId: products[0]?.id || '', qty: 5 },
-  ]);
+  const [items, setItems] = useState<Array<{ productId: string; qty: number }>>(
+    [{ productId: products[0]?.id || '', qty: 5 }]
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -48,6 +49,7 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
     setItems((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleItemChange = (index: number, field: 'productId' | 'qty', value: any) => {
     setItems((prev) => {
       const copy = [...prev];
@@ -63,7 +65,7 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
     return item.qty > available;
   });
 
-  const handleSubmit = (autoValidate: boolean = false) => {
+  const handleSubmit = async (autoValidate: boolean = false) => {
     if (isSameLocation) {
       showToast('Source and Destination locations must be different.', 'error');
       return;
@@ -77,20 +79,27 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
       return;
     }
 
-    const newOp = createOperation({
-      type: 'INTERNAL',
-      sourceLocationId,
-      destLocationId,
-      scheduledDate,
-      notes,
-      moves: items,
-    });
+    setIsSubmitting(true);
+    try {
+      const newOp = await createOperation({
+        type: 'INTERNAL',
+        sourceLocationId,
+        destLocationId,
+        scheduledDate,
+        notes,
+        moves: items,
+      });
 
-    if (autoValidate) {
-      updateOperationStatus(newOp.id, 'DONE');
+      if (autoValidate) {
+        await updateOperationStatus(newOp.id, 'DONE');
+      }
+
+      onClose();
+    } catch {
+      // error shown via showToast
+    } finally {
+      setIsSubmitting(false);
     }
-
-    onClose();
   };
 
   return (
@@ -279,24 +288,24 @@ export function TransferWorkflowForm({ isOpen, onClose }: TransferWorkflowFormPr
           <div className="flex items-center gap-2">
             <button
               type="button"
-              disabled={isSameLocation}
+              disabled={isSameLocation || isSubmitting}
               onClick={() => handleSubmit(false)}
               className="rounded-lg border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/[0.08] disabled:opacity-40"
             >
-              Save as Draft
+              {isSubmitting ? 'Saving…' : 'Save as Draft'}
             </button>
             <button
               type="button"
-              disabled={isSameLocation || hasInsufficientStock}
+              disabled={isSameLocation || hasInsufficientStock || isSubmitting}
               onClick={() => handleSubmit(true)}
               className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold text-white shadow-lg transition-all ${
-                isSameLocation || hasInsufficientStock
+                isSameLocation || hasInsufficientStock || isSubmitting
                   ? 'bg-zinc-700 opacity-50 cursor-not-allowed'
                   : 'bg-purple-600 shadow-purple-600/25 hover:bg-purple-500'
               }`}
             >
               <IconCheck size={14} />
-              <span>Transfer & Validate Now</span>
+              <span>{isSubmitting ? 'Processing…' : 'Transfer & Validate Now'}</span>
             </button>
           </div>
         </div>

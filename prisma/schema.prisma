@@ -70,12 +70,15 @@ model StockQuant {
 
 model StockOperation {
   id               String        @id @default(cuid())
+  referenceNumber  String        @unique // e.g. WH/IN/2026/0001
   type             String        // RECEIPT, DELIVERY, INTERNAL, ADJUSTMENT
-  status           String        // DRAFT, WAITING, READY, DONE, CANCELED
+  status           String        @default("DRAFT") // DRAFT, WAITING, READY, DONE, CANCELED
   sourceLocationId String?
   sourceLocation   Location?     @relation("SourceLocation", fields: [sourceLocationId], references: [id])
   destLocationId   String?
   destLocation     Location?     @relation("DestLocation", fields: [destLocationId], references: [id])
+  notes            String        @default("")
+  scheduledDate    DateTime      @default(now())
   moves            StockMove[]
   ledgerEntries    StockLedger[]
   createdAt        DateTime      @default(now())

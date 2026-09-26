@@ -215,4 +215,3 @@ export function IconBox({ size = 20, className = '', ...props }: IconProps) {
     </svg>
   );
 }
-
